@@ -1,10 +1,10 @@
-package com.bookmanagement.demo;
+package com.nitelife.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BookManagementTests {
+class NitelifeTests {
 
 	@Test
 	void contextLoads() {
