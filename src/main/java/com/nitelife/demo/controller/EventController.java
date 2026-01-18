@@ -7,11 +7,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/api/events")
 public class EventController {
     private final EventService eventService;
@@ -34,12 +36,20 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public Event get(@PathVariable Long id) {
+    public String get(@PathVariable Long id, Model model) {
         try {
-            return eventService.get(id);
+            Event event = eventService.get(id);
+            model.addAttribute("event", event);
+            return "eventdetails";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping("/hello")
+    public String hello(Model model) {
+        model.addAttribute("message", "HELLO THYMILIFI!");
+        return "hello";
     }
 
     @PostMapping
