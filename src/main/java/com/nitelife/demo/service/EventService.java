@@ -1,5 +1,7 @@
-package com.nitelife.demo;
+package com.nitelife.demo.service;
 
+import com.nitelife.demo.model.Event;
+import com.nitelife.demo.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

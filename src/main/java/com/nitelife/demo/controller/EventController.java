@@ -1,5 +1,7 @@
-package com.nitelife.demo;
+package com.nitelife.demo.controller;
 
+import com.nitelife.demo.service.EventService;
+import com.nitelife.demo.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

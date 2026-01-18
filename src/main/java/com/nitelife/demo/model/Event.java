@@ -1,7 +1,6 @@
-package com.nitelife.demo;
+package com.nitelife.demo.model;
 
 import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
