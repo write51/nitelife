@@ -1,0 +1,57 @@
+package com.nitelife.demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/events")
+public class EventController {
+    private final EventService eventService;
+
+    @Autowired
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
+
+    @GetMapping
+    public List<Event> getAll() {
+        try {
+            Pageable paging = PageRequest.of(0, 10, Sort.by("id"));
+            Page<Event> pages;
+            pages = eventService.findAll(paging);
+            return pages.getContent();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public Event get(@PathVariable Long id) {
+        try {
+            return eventService.get(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping
+    Event create(@RequestBody Event event) {
+        return eventService.create(event);
+    }
+
+    @PutMapping("/{id}")
+    Event update(@RequestBody Event event, @PathVariable Long id) {
+        return eventService.update(event, id);
+    }
+
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable Long id) {
+        eventService.delete(id);
+    }
+}
