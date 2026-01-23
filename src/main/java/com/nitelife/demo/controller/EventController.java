@@ -33,20 +33,20 @@ public class EventController {
     //    }
 
     @GetMapping("/{id}")
-    public String getEvent(@PathVariable Long id, Model model) {
+    public String getEvent(@PathVariable Long id, final Model model) {
         try {
-            Event event = eventService.get(id);
-            model.addAttribute("event", event);
-            return "eventdetails";
+            model.addAttribute("event", this.eventService.get(id));
+            return "event";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    @GetMapping("/date/{date}")
+    @GetMapping("/{year}/{month}/{day}")
     @ResponseBody
-    public List<Event> getEventByDate(@PathVariable String date) {
+    public List<Event> getEventByDate(@PathVariable String year, @PathVariable String month, @PathVariable String day) {
         try {
+            String date = year + "-" + month + "-" + day;
             List<Event> events = eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
             return events;
         } catch (Exception e) {

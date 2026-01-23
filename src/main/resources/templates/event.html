@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <title>Thymeleaf Sandbox</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Event ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Time</th>
+          <th>Location</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="e : ${event}">
+          <td th:text="${e.id}">...</td>
+          <td th:text="${e.name}">...</td>
+          <td th:text="${e.date}">...</td>
+          <td th:text="${e.time}">...</td>
+          <td th:text="${e.location}">...</td>
+          <td th:text="${e.price}">...</td>
+          <td th:text="${e.category}">...</td>
+          <td th:text="${e.description}">...</td>
+          <td th:text="${e.link}">...</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </body>
+
+</html>
