@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -23,20 +26,14 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping
-    public List<Event> getAll() {
-        try {
-            Pageable paging = PageRequest.of(0, 10, Sort.by("id"));
-            Page<Event> pages;
-            pages = eventService.findAll(paging);
-            return pages.getContent();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+    //    @GetMapping("/hello")
+    //    public String hello(Model model) {
+    //        model.addAttribute("message", "HELLO THYMILIFI!");
+    //        return "hello";
+    //    }
 
     @GetMapping("/{id}")
-    public String get(@PathVariable Long id, Model model) {
+    public String getEvent(@PathVariable Long id, Model model) {
         try {
             Event event = eventService.get(id);
             model.addAttribute("event", event);
@@ -46,24 +43,30 @@ public class EventController {
         }
     }
 
-    @GetMapping("/hello")
-    public String hello(Model model) {
-        model.addAttribute("message", "HELLO THYMILIFI!");
-        return "hello";
+    @GetMapping("/date/{date}")
+    @ResponseBody
+    public List<Event> getEventByDate(@PathVariable String date) {
+        try {
+            List<Event> events = eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+            return events;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping
-    Event create(@RequestBody Event event) {
+    Event createEvent(@RequestBody Event event) {
         return eventService.create(event);
     }
 
     @PutMapping("/{id}")
-    Event update(@RequestBody Event event, @PathVariable Long id) {
+    Event updateEvent(@RequestBody Event event, @PathVariable Long id) {
         return eventService.update(event, id);
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
+    void deleteEvent(@PathVariable Long id) {
         eventService.delete(id);
     }
+
 }

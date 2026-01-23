@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +28,17 @@ public class EventService {
         return repository.findAll(paging);
     }
 
-
-
     public Event get(Long id) {
         try {
             return repository.findById(id).get();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Event> getByDate(Date date) {
+        try {
+            return repository.findAllByDate(date);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

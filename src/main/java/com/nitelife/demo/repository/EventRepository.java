@@ -5,10 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
     Page<Event> findAll(Pageable pageable);
-    //Page<Event> findAllByTitle(String title, Pageable pageable);
-    //Page<Book> findAllByAuthor(String author, Pageable pageable);
+    List<Event> findAllByDate(Date date);
 }
