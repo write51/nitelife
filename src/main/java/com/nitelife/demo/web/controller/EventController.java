@@ -1,19 +1,13 @@
-package com.nitelife.demo.controller;
+package com.nitelife.demo.web.controller;
 
-import com.nitelife.demo.service.EventService;
-import com.nitelife.demo.model.Event;
+import com.nitelife.demo.business.service.EventService;
+import com.nitelife.demo.business.Event;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller

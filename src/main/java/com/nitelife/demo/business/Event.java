@@ -1,4 +1,4 @@
-package com.nitelife.demo.model;
+package com.nitelife.demo.business;
 
 import jakarta.persistence.*;
 

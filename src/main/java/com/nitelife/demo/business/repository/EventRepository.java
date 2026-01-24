@@ -1,6 +1,6 @@
-package com.nitelife.demo.repository;
+package com.nitelife.demo.business.repository;
 
-import com.nitelife.demo.model.Event;
+import com.nitelife.demo.business.Event;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
