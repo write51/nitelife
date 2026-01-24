@@ -32,4 +32,9 @@ public class MainController {
     public String redirectToLogin() {
         return "login";
     }
+
+    @GetMapping("/suggest")
+    public String redirectToSuggest() {
+        return "suggest";
+    }
 }
