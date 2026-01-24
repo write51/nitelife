@@ -1,44 +1,55 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nitelife</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
 
-<html>
+<header class="p-3 text-bg-dark">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+      </a> <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="http://localhost:8080" class="nav-link px-2 text-secondary">Home</a></li>
+        <li><a href="http://localhost:8080/calendar" class="nav-link px-2 text-white">Calendar</a></li>
+        <!-- <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+        <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+        <li><a href="#" class="nav-link px-2 text-white">About</a></li> -->
+      </ul>
+        <div class="text-end"> <button type="button" class="btn btn-outline-light me-2">Login</button>
+          <button type="button" class="btn btn-warning">Suggest an event</button> </div> </div> </div>
+</header>
 
-  <head>
-    <title>Thymeleaf Sandbox</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  </head>
+<br>
 
-  <body>
+<div class="container my-5">
+  <div class="p-5 text-center bg-body-tertiary rounded-3"><svg class="bi mt-4 mb-3" style="color: var(--bs-indigo);" width="100" height="100" aria-hidden="true"><use xlink:href="#bootstrap"></use></svg>
+  <h1 class="text-body-emphasis" th:text="${event.name}">...</h1>
+  <p class="col-lg-8 mx-auto fs-5 text-muted" th:utext="${event.description}">
+  ...
+  </p>
+  <p class="col-lg-8 mx-auto fs-5 text-muted" th:text="${event.location}">...</p>
+  <p class="col-lg-8 mx-auto fs-5 text-muted" th:text="${event.time}">...</p>
+  
+  <!-- FIXME: Date should be formatted -->
+  <p class="col-lg-8 mx-auto fs-5 text-muted" th:text="${event.date}">...</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Event ID</th>
-          <th>Name</th>
-          <th>Date</th>
-          <th>Name</th>
-          <th>Time</th>
-          <th>Location</th>
-          <th>Price</th>
-          <th>Category</th>
-          <th>Description</th>
-          <th>Link</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="e : ${event}">
-          <td th:text="${e.id}">...</td>
-          <td th:text="${e.name}">...</td>
-          <td th:text="${e.date}">...</td>
-          <td th:text="${e.time}">...</td>
-          <td th:text="${e.location}">...</td>
-          <td th:text="${e.price}">...</td>
-          <td th:text="${e.category}">...</td>
-          <td th:text="${e.description}">...</td>
-          <td th:text="${e.link}">...</td>
-        </tr>
-      </tbody>
-    </table>
 
-  </body>
+  <div class="d-inline-flex gap-2 mb-5">
+  <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
+  Visit
+  </button>
+  <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button">
+  Like
+  </button>
+  </div>
+  </div>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
 </html>

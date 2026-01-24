@@ -27,4 +27,9 @@ public class MainController {
             throw new RuntimeException(e);
         }
     }
+
+    @GetMapping("/login")
+    public String redirectToLogin() {
+        return "login";
+    }
 }
