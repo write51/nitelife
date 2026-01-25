@@ -105,7 +105,7 @@
       <td><a th:href="'http://localhost:8080/adminpanel/events/delete/' + ${e.id}">Delete</a></td>
     </tr>
     <!-- ----------------------------------------------- -->
-    <tr><td>Previous</td><td></td><td></td><td></td><td></td><td></td><td>Next</td></tr>
+    <tr><td><a th:href="'http://localhost:8080/adminpanel/events?page=' + ${previousPage}">Previous</a></td><td></td><td></td><td></td><td></td><td></td><td><a th:href="'http://localhost:8080/adminpanel/events?page=' + ${nextPage}">Next</a></td></tr>
     </tr>
   </table>
 </div>

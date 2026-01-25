@@ -90,9 +90,17 @@ public class MainController {
     public String redirectToAdminPanelEvents(@RequestParam(required = false) String page, final Model model) {
         if (page==null) {
             model.addAttribute("events", this.eventService.admineventsPagesGet("0"));
+            model.addAttribute("previousPage", "0");
+            model.addAttribute("nextPage", "1");
             return "adminpanelevents";
         }
         model.addAttribute("events", this.eventService.admineventsPagesGet(page));
+        if (Integer.valueOf(page) >= 1) {
+            model.addAttribute("previousPage", String.valueOf(Integer.valueOf(page) - 1));
+        } else if (Integer.valueOf(page) == 0) {
+            model.addAttribute("previousPage", "0");
+        }
+        model.addAttribute("nextPage", String.valueOf(Integer.valueOf(page) + 1));
         return "adminpanelevents";
     }
 
