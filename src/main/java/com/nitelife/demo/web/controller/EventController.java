@@ -71,6 +71,9 @@ public class EventController {
 
                 model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
 
+                model.addAttribute("filterCategoryActive", filterCategory);
+
+
                 return "date";
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -89,6 +92,10 @@ public class EventController {
             model.addAttribute("forwardLink", "http://localhost:8080/api/events/" + getForwardLink(date));
 
             model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
+
+            model.addAttribute("filterCategoryActive", "notselected");
+
+
 
             return "date";
         } catch (Exception e) {

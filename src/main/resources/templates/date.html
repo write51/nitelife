@@ -26,24 +26,13 @@
           <a href="http://localhost:8080/suggest"><button type="button" class="btn btn-warning">Suggest an event</button></a> </div> </div> </div>
 </header>
 
-<div class="container p-3 pb-1">
+<div class="container p-3">
 <div class="row m-auto w-50">
   <div class="column w-auto m-auto">
 <a th:href="${backLink}"><button type="button" class="btn btn-primary btn-sm">Back</button></a>
 <a th:href="${forwardLink}"><button type="button" class="btn btn-primary btn-sm">Forward</button></a>
   </div>
 </div>
-</div>
-
-<!-- Filter -->
-<div class="d-flex gap-2 justify-content-center pb-2">
-  <a th:href="${filterUrl} + 'Edukacija'"><span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">Edukacija</span></a>
-  <a th:href="${filterUrl} + 'Film'"><span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill">Film</span></a>
-  <a th:href="${filterUrl} + 'Izložba'"><span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Izložba</span></a>
-  <a th:href="${filterUrl} + 'Mjuzza'"><span class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill">Mjuzza</span></a>
-  <a th:href="${filterUrl} + 'Ostalo'"><span class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill">Ostalo</span></a>
-  <a th:href="${filterUrl} + 'Predstava'"><span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill">Predstava</span></a>
-  <a th:href="${filterUrl} + 'Sport'"><span class="badge bg-dark-subtle border border-dark-subtle text-dark-emphasis rounded-pill">Sport</span></a>
 </div>
 
 <div class="container-fluid">
@@ -131,6 +120,99 @@
 
 </div>
 </div>
+
+<!-- Filter -->
+<div th:switch="${filterCategoryActive}" class="d-flex gap-2 justify-content-center p-2">
+    <!-- FIXME 1 times same code -->
+  <div th:case="'notselected'">
+    <a th:href="${filterUrl} + 'Edukacija'"><span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill opacity-25">Edukacija</span></a>
+    <a th:href="${filterUrl} + 'Film'"><span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill opacity-25">Film</span></a>
+    <a th:href="${filterUrl} + 'Izložba'"><span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill opacity-25">Izložba</span></a>
+    <a th:href="${filterUrl} + 'Mjuzza'"><span class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill opacity-25">Mjuzza</span></a>
+    <a th:href="${filterUrl} + 'Ostalo'"><span class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill opacity-25">Ostalo</span></a>
+    <a th:href="${filterUrl} + 'Predstava'"><span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill opacity-25">Predstava</span></a>
+    <a th:href="${filterUrl} + 'Sport'"><span class="badge bg-dark-subtle border border-dark-subtle text-dark-emphasis rounded-pill opacity-25">Sport</span></a>
+  </div>
+  <!-- FIXME 1 times same code -->
+  <div th:case="'Edukacija'">
+    <a th:href="${filterUrl} + 'Edukacija'"><span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">Edukacija</span></a>
+    <a th:href="${filterUrl} + 'Film'"><span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill opacity-25">Film</span></a>
+    <a th:href="${filterUrl} + 'Izložba'"><span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill opacity-25">Izložba</span></a>
+    <a th:href="${filterUrl} + 'Mjuzza'"><span class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill opacity-25">Mjuzza</span></a>
+    <a th:href="${filterUrl} + 'Ostalo'"><span class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill opacity-25">Ostalo</span></a>
+    <a th:href="${filterUrl} + 'Predstava'"><span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill opacity-25">Predstava</span></a>
+    <a th:href="${filterUrl} + 'Sport'"><span class="badge bg-dark-subtle border border-dark-subtle text-dark-emphasis rounded-pill opacity-25">Sport</span></a>
+  </div>
+  <!-- FIXME 2 times same code -->
+  <div th:case="'Film'">
+    <a th:href="${filterUrl} + 'Edukacija'"><span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill opacity-25">Edukacija</span></a>
+    <a th:href="${filterUrl} + 'Film'"><span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill">Film</span></a>
+    <a th:href="${filterUrl} + 'Izložba'"><span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill opacity-25">Izložba</span></a>
+    <a th:href="${filterUrl} + 'Mjuzza'"><span class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill opacity-25">Mjuzza</span></a>
+    <a th:href="${filterUrl} + 'Ostalo'"><span class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill opacity-25">Ostalo</span></a>
+    <a th:href="${filterUrl} + 'Predstava'"><span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill opacity-25">Predstava</span></a>
+    <a th:href="${filterUrl} + 'Sport'"><span class="badge bg-dark-subtle border border-dark-subtle text-dark-emphasis rounded-pill opacity-25">Sport</span></a>
+  </div>
+  <!-- FIXME 3 times same code -->
+  <div th:case="'Izložba'">
+    <a th:href="${filterUrl} + 'Edukacija'"><span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill opacity-25">Edukacija</span></a>
+    <a th:href="${filterUrl} + 'Film'"><span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill opacity-25">Film</span></a>
+    <a th:href="${filterUrl} + 'Izložba'"><span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Izložba</span></a>
+    <a th:href="${filterUrl} + 'Mjuzza'"><span class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill opacity-25">Mjuzza</span></a>
+    <a th:href="${filterUrl} + 'Ostalo'"><span class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill opacity-25">Ostalo</span></a>
+    <a th:href="${filterUrl} + 'Predstava'"><span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill opacity-25">Predstava</span></a>
+    <a th:href="${filterUrl} + 'Sport'"><span class="badge bg-dark-subtle border border-dark-subtle text-dark-emphasis rounded-pill opacity-25">Sport</span></a>
+  </div>
+  <!-- FIXME 4 times same code -->
+  <div th:case="'Mjuzza'">
+    <a th:href="${filterUrl} + 'Edukacija'"><span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill opacity-25">Edukacija</span></a>
+    <a th:href="${filterUrl} + 'Film'"><span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill opacity-25">Film</span></a>
+    <a th:href="${filterUrl} + 'Izložba'"><span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill opacity-25">Izložba</span></a>
+    <a th:href="${filterUrl} + 'Mjuzza'"><span class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill">Mjuzza</span></a>
+    <a th:href="${filterUrl} + 'Ostalo'"><span class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill opacity-25">Ostalo</span></a>
+    <a th:href="${filterUrl} + 'Predstava'"><span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill opacity-25">Predstava</span></a>
+    <a th:href="${filterUrl} + 'Sport'"><span class="badge bg-dark-subtle border border-dark-subtle text-dark-emphasis rounded-pill opacity-25">Sport</span></a>
+  </div>
+  <!-- FIXME 5 times same code -->
+  <div th:case="'Ostalo'">
+    <a th:href="${filterUrl} + 'Edukacija'"><span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill opacity-25">Edukacija</span></a>
+    <a th:href="${filterUrl} + 'Film'"><span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill opacity-25">Film</span></a>
+    <a th:href="${filterUrl} + 'Izložba'"><span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill opacity-25">Izložba</span></a>
+    <a th:href="${filterUrl} + 'Mjuzza'"><span class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill opacity-25">Mjuzza</span></a>
+    <a th:href="${filterUrl} + 'Ostalo'"><span class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill">Ostalo</span></a>
+    <a th:href="${filterUrl} + 'Predstava'"><span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill opacity-25">Predstava</span></a>
+    <a th:href="${filterUrl} + 'Sport'"><span class="badge bg-dark-subtle border border-dark-subtle text-dark-emphasis rounded-pill opacity-25">Sport</span></a>
+  </div>
+  <!-- FIXME 6 times same code -->
+  <div th:case="'Predstava'">
+    <a th:href="${filterUrl} + 'Edukacija'"><span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill opacity-25">Edukacija</span></a>
+    <a th:href="${filterUrl} + 'Film'"><span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill opacity-25">Film</span></a>
+    <a th:href="${filterUrl} + 'Izložba'"><span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill opacity-25">Izložba</span></a>
+    <a th:href="${filterUrl} + 'Mjuzza'"><span class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill opacity-25">Mjuzza</span></a>
+    <a th:href="${filterUrl} + 'Ostalo'"><span class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill opacity-25">Ostalo</span></a>
+    <a th:href="${filterUrl} + 'Predstava'"><span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill ">Predstava</span></a>
+    <a th:href="${filterUrl} + 'Sport'"><span class="badge bg-dark-subtle border border-dark-subtle text-dark-emphasis rounded-pill opacity-25">Sport</span></a>
+  </div>
+  <!-- FIXME 7 times same code -->
+  <div th:case="'Sport'">
+    <a th:href="${filterUrl} + 'Edukacija'"><span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill opacity-25">Edukacija</span></a>
+    <a th:href="${filterUrl} + 'Film'"><span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill opacity-25">Film</span></a>
+    <a th:href="${filterUrl} + 'Izložba'"><span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill opacity-25">Izložba</span></a>
+    <a th:href="${filterUrl} + 'Mjuzza'"><span class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill opacity-25">Mjuzza</span></a>
+    <a th:href="${filterUrl} + 'Ostalo'"><span class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill opacity-25">Ostalo</span></a>
+    <a th:href="${filterUrl} + 'Predstava'"><span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill opacity-25">Predstava</span></a>
+    <a th:href="${filterUrl} + 'Sport'"><span class="badge bg-dark-subtle border border-dark-subtle text-dark-emphasis rounded-pill">Sport</span></a>
+  </div>
+</div>
+<!-- <div class="d-flex gap-2 justify-content-center p-2">
+  <a th:href="${filterUrl} + 'Edukacija'"><span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">Edukacija</span></a>
+  <a th:href="${filterUrl} + 'Film'"><span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill">Film</span></a>
+  <a th:href="${filterUrl} + 'Izložba'"><span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Izložba</span></a>
+  <a th:href="${filterUrl} + 'Mjuzza'"><span class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill">Mjuzza</span></a>
+  <a th:href="${filterUrl} + 'Ostalo'"><span class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill">Ostalo</span></a>
+  <a th:href="${filterUrl} + 'Predstava'"><span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill">Predstava</span></a>
+  <a th:href="${filterUrl} + 'Sport'"><span class="badge bg-dark-subtle border border-dark-subtle text-dark-emphasis rounded-pill">Sport</span></a>
+</div> -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
