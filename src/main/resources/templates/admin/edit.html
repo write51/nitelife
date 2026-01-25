@@ -84,31 +84,66 @@
 </div>
 
 <div class="col-9">
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Time</th>
-      <th>Location</th>
-      <th>Category</th>
-      <th>Edit</th>
-      <th>Delete</th>
-    </tr>
-    <!-- ------------------------------------------------ -->
-    <tr th:each="e : ${events}">
-      <td th:text="${e.id}">...</td>
-      <td th:text="${e.name}">...</td>
-      <td th:text="${e.time}">...</td>
-      <td th:text="${e.location}">...</td>
-      <td th:text="${e.category}">...</td>
-      <td><a th:href="'http://localhost:8080/adminpanel/events/edit/' + ${e.id}">Edit</a></td>
-      <td><a th:href="'http://localhost:8080/adminpanel/events/delete/' + ${e.id}">Delete</a></td>
-    </tr>
-    <!-- ----------------------------------------------- -->
-    <tr><td>Previous</td><td></td><td></td><td></td><td></td><td></td><td>Next</td></tr>
-    </tr>
-  </table>
+  <!---------------------------------------------------->
+  <form class="needs-validation" novalidate="" th:action="'http://localhost:8080/adminpanel/events/edit/' + ${event.id} + '/update'" method="post">
+
+    <div class="col-12">
+    <label for="address" class="form-label">Name</label>
+    <input type="text" class="form-control" id="address" name="eventname" th:value="${event.name}" required=""> 
+    <div class="invalid-feedback">
+    Please enter event title.
+    </div>
+    </div> 
+
+        <div class="row g-3">
+
+    <div class="col-sm-6">
+        <label for="firstName" class="form-label">Date</label>
+        <input type="text" class="form-control" id="firstName" name="eventdate" th:value="${event.date}" placeholder="" value="" required="">
+        <div class="invalid-feedback">
+        Valid event date is required.
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+    <label for="lastName" class="form-label">Time</label>
+    <input type="text" class="form-control" id="lastName" name="eventtime" th:value="${event.time}" placeholder="" value="" required="">
+    <div class="invalid-feedback">
+    Valid event time is required.
+    </div>
+    </div>
+
+    <div class="col-12">
+        <label for="address" class="form-label">Description</label>
+        <input type="text" class="form-control" id="address" name="eventdescription" th:value="${event.description}" placeholder="Cool event description" required=""> 
+        <div class="invalid-feedback">
+        Please enter some description.
+        </div>
+    </div> 
+
+    <div class="col-md-5"> <label for="country" class="form-label">Category</label>
+        <select class="form-select" id="country" name="eventcategory" required="" th:switch="${event.category}">
+          <option th:selected="${event.category} == 'Edukacija'">Edukacija</option>
+          <option th:selected="${event.category} == 'Film'">Film</option>
+          <option th:selected="${event.category} == 'Izložba'">Izložba</option>
+          <option th:selected="${event.category} == 'Mjuzza'">Mjuzza</option>
+          <option th:selected="${event.category} == 'Ostalo'">Ostalo</option>
+          <option th:selected="${event.category} == 'Predstava'">Predstava</option>
+          <option th:selected="${event.category} == 'Sport'">Sport</option>
+        </select>
+        <div class="invalid-feedback">
+        Please select a valid country.
+        </div>
+    </div>
+    <br>
+    </div>
+    <br>
+    <button class="w-100 btn btn-primary btn-lg" type="submit">Update</button>
+  </form>
+  <!---------------------------------------------------->
 </div>
+
+
 
 </div>
 </div>

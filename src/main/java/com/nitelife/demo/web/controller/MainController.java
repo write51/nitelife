@@ -87,7 +87,86 @@ public class MainController {
     }
 
     @GetMapping("/adminpanel/events")
-    public String redirectToAdminPanel() {
+    public String redirectToAdminPanelEvents(@RequestParam(required = false) String page, final Model model) {
+        if (page==null) {
+            model.addAttribute("events", this.eventService.admineventsPagesGet("0"));
+            return "adminpanelevents";
+        }
+        model.addAttribute("events", this.eventService.admineventsPagesGet(page));
+        return "adminpanelevents";
+    }
+
+    @GetMapping("/adminpanel/events/delete/{id}")
+    public String deleteAreYouSure(@PathVariable Long id, final Model model) {
+        //this.eventService.delete(id);
+        model.addAttribute("event", this.eventService.get(id));
+        return "admin/delete_confirmation";
+    }
+
+    @GetMapping("/adminpanel/events/edit/{id}")
+    public String adminEdit(@PathVariable Long id, final Model model) {
+        model.addAttribute("event", this.eventService.get(id));
+        return "admin/edit";
+    }
+
+    @PostMapping("/adminpanel/events/edit/{id}/update")
+    public String adminEditUpdateEvent(@PathVariable Long id, @RequestBody String eventDetails) throws ParseException {
+        // http://localhost:8080/adminpanel/events/edit/12/update
+
+        //Event event = model.addAttribute("event", this.eventService.get(id));
+
+        // FIXME: Hehe...
+        String name = "";
+        String date = "";
+        String time = "";
+        String description = "";
+        String category = "";
+
+        try {
+            name = eventDetails.split("&")[0].split("=")[1];
+        } catch (Exception e) {
+            name="";
+        }
+        try {
+            date = eventDetails.split("&")[1].split("=")[1];
+        } catch (Exception e) {
+            date = "";
+        }
+        try {
+            time = eventDetails.split("&")[2].split("=")[1];
+        } catch (Exception e) {
+            time = "";
+        }
+        try {
+            description = eventDetails.split("&")[3].split("=")[1];
+        } catch (Exception e) {
+            description = "";
+        }
+        try {
+            category = eventDetails.split("&")[4].split("=")[1];
+        } catch (Exception e) {
+            category = "";
+        }
+
+
+        Event event = this.eventService.get(id);
+
+        event.setName(name);
+        event.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-10-10"));
+        event.setTime(time);
+        event.setDescription(description);
+        event.setCategory(category);
+
+        Event updated = this.eventService.update(event, id);
+
+        return "adminpanelevents";
+    }
+
+
+
+    @GetMapping("/adminpanel/events/delete/{id}/confirm")
+    public String deleteAreYouSureConfirm(@PathVariable Long id, final Model model) {
+        this.eventService.delete(id);
         return "adminpanelevents";
     }
 
