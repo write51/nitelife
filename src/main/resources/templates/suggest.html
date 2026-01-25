@@ -21,11 +21,11 @@
 <div class="col-md-7 col-lg">
 <!-- <h4 class="mb-3">Event</h4> -->
 
-<form class="needs-validation" novalidate="">
+<form class="needs-validation" novalidate="" action="http://localhost:8080/suggestevent" method="post">
 
 <div class="col-12">
 <label for="address" class="form-label">Name</label>
-<input type="text" class="form-control" id="address" placeholder="Fun event" required=""> 
+<input type="text" class="form-control" id="address" name="eventname" placeholder="Fun event" required=""> 
 <div class="invalid-feedback">
 Please enter event title.
 </div>
@@ -35,7 +35,7 @@ Please enter event title.
 
 <div class="col-sm-6">
     <label for="firstName" class="form-label">Date</label>
-    <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+    <input type="text" class="form-control" id="firstName" name="eventdate" placeholder="" value="" required="">
     <div class="invalid-feedback">
     Valid event date is required.
     </div>
@@ -44,7 +44,7 @@ Please enter event title.
 
 <div class="col-sm-6">
 <label for="lastName" class="form-label">Time</label>
-<input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+<input type="text" class="form-control" id="lastName" name="eventtime" placeholder="" value="" required="">
 <div class="invalid-feedback">
 Valid event time is required.
 </div>
@@ -62,14 +62,14 @@ Your username is required.
 
 <div class="col-12">
     <label for="address" class="form-label">Description</label>
-    <input type="text" class="form-control" id="address" placeholder="Cool event description" required=""> 
+    <input type="text" class="form-control" id="address" name="eventdescription" placeholder="Cool event description" required=""> 
     <div class="invalid-feedback">
     Please enter some description.
     </div>
 </div> 
 
 <div class="col-md-5"> <label for="country" class="form-label">Category</label>
-    <select class="form-select" id="country" required="">
+    <select class="form-select" id="country" name="eventcategory" required="">
     <option value="">Select category</option>
 <option>Edukacija</option>
 <option>Film</option>

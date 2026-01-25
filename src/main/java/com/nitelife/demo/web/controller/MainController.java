@@ -1,5 +1,6 @@
 package com.nitelife.demo.web.controller;
 
+import com.nitelife.demo.business.Event;
 import com.nitelife.demo.business.service.EventService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,6 +86,40 @@ public class MainController {
         if (Objects.equals(loginCredentials, "uname=admin&pword=admin")) {
             return "adminpanel";
         }
+        return "index";
+    }
+
+//    private Event eventStringToObject(String eventDetails) {
+//
+//    }
+
+    @PostMapping("/suggestevent")
+    public String suggestAnEvent(@RequestBody String eventDetails) throws ParseException {
+
+        // FIXME: Incoming strings should be converted from URL format to normal string.
+        String name = eventDetails.split("&")[0].split("=")[1];
+        String date = eventDetails.split("&")[1].split("=")[1];
+        String time = eventDetails.split("&")[2].split("=")[1];
+        String description = eventDetails.split("&")[3].split("=")[1];
+        String category = eventDetails.split("&")[4].split("=")[1];
+
+        /*
+        NAME: This+is+an+Fun+Event+name+and+is+really+fun
+        DATE: 19.01.2024.
+        TIME: 18%3A30
+        DESCRIPTION: Submitting+an+event+Starcarft+is+awesome+and+so+is+Warcraft+and+stuff.+Also+Tiny+Tycoon+Universe.
+        CATEGORY: Mjuzza
+        */
+
+        Event event = new Event();
+        event.setName(name);
+        event.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-10-10"));
+        event.setTime(time);
+        event.setDescription(description);
+        event.setCategory(category);
+
+        eventService.create(event);
+
         return "index";
     }
 }
