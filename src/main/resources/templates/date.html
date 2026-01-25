@@ -14,8 +14,8 @@
       <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
         <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
       </a> <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">Calendar</a></li>
+        <li><a href="http://localhost:8080" class="nav-link px-2 text-secondary">Home</a></li>
+        <li><a href="http://localhost:8080/calendar" class="nav-link px-2 text-white">Calendar</a></li>
         <!-- <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
         <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
         <li><a href="#" class="nav-link px-2 text-white">About</a></li> -->
@@ -26,13 +26,24 @@
           <a href="http://localhost:8080/suggest"><button type="button" class="btn btn-warning">Suggest an event</button></a> </div> </div> </div>
 </header>
 
-<div class="container p-3">
+<div class="container p-3 pb-1">
 <div class="row m-auto w-50">
   <div class="column w-auto m-auto">
 <a th:href="${backLink}"><button type="button" class="btn btn-primary btn-sm">Back</button></a>
 <a th:href="${forwardLink}"><button type="button" class="btn btn-primary btn-sm">Forward</button></a>
   </div>
 </div>
+</div>
+
+<!-- Filter -->
+<div class="d-flex gap-2 justify-content-center pb-2">
+  <a th:href="${filterUrl} + 'Edukacija'"><span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">Edukacija</span></a>
+  <a th:href="${filterUrl} + 'Film'"><span class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill">Film</span></a>
+  <a th:href="${filterUrl} + 'Izložba'"><span class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Izložba</span></a>
+  <a th:href="${filterUrl} + 'Mjuzza'"><span class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill">Mjuzza</span></a>
+  <a th:href="${filterUrl} + 'Ostalo'"><span class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill">Ostalo</span></a>
+  <a th:href="${filterUrl} + 'Predstava'"><span class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill">Predstava</span></a>
+  <a th:href="${filterUrl} + 'Sport'"><span class="badge bg-dark-subtle border border-dark-subtle text-dark-emphasis rounded-pill">Sport</span></a>
 </div>
 
 <div class="container-fluid">
@@ -56,6 +67,8 @@
     </a>
   </div>
 </div>
+
+
 
 
 
@@ -118,8 +131,6 @@
 
 </div>
 </div>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>

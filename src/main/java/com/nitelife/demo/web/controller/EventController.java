@@ -66,8 +66,10 @@ public class EventController {
                 model.addAttribute("events2", this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(date))), filterCategory));
                 model.addAttribute("events3", this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(getForwardLinkNoReplace(date)))), filterCategory));
 
-                model.addAttribute("backLink", "http://localhost:8080/api/events/" + getBackLink(date));
-                model.addAttribute("forwardLink", "http://localhost:8080/api/events/" + getForwardLink(date));
+                model.addAttribute("backLink", "http://localhost:8080/api/events/" + getBackLink(date) + "?filterCategory=" + filterCategory);
+                model.addAttribute("forwardLink", "http://localhost:8080/api/events/" + getForwardLink(date) + "?filterCategory=" + filterCategory);
+
+                model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
 
                 return "date";
             } catch (Exception e) {
@@ -85,6 +87,8 @@ public class EventController {
 
             model.addAttribute("backLink", "http://localhost:8080/api/events/" + getBackLink(date));
             model.addAttribute("forwardLink", "http://localhost:8080/api/events/" + getForwardLink(date));
+
+            model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
 
             return "date";
         } catch (Exception e) {
