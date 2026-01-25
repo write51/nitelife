@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 @Controller
 public class MainController {
@@ -76,5 +77,14 @@ public class MainController {
     @GetMapping("/suggest")
     public String redirectToSuggest() {
         return "suggest";
+    }
+
+    @PostMapping("/submitlogin")
+    public String submitLogin(@RequestBody String loginCredentials) {
+        System.out.println("loginCredentials -> " + "'" + loginCredentials + "'");
+        if (Objects.equals(loginCredentials, "uname=admin&pword=admin")) {
+            return "adminpanel";
+        }
+        return "index";
     }
 }
