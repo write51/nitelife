@@ -43,12 +43,12 @@
     
     </a>  -->
       
-      <ul class="nav nav-pills flex-column mb-auto"> <li class="nav-item"> <a href="http://localhost:8080/adminpanel" class="nav-link active" aria-current="page"> 
+      <ul class="nav nav-pills flex-column mb-auto"> <li class="nav-item"> <a href="http://localhost:8080/adminpanel" class="nav-link " aria-current="page"> 
         <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true"><use xlink:href="#home"></use></svg>
   Overview
   </a> </li>
   
-  <li> <a href="http://localhost:8080/adminpanel/events" class="nav-link link-body-emphasis"> <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
+  <li> <a href="http://localhost:8080/adminpanel/events" class="nav-link active link-body-emphasis"> <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
     <use xlink:href="#speedometer2"></use></svg>
   Events
   </a> </li>
@@ -85,27 +85,9 @@
 <div class="col-9">
 
   <div class="p-5 text-center bg-body-tertiary rounded-3"><svg class="bi mt-4 mb-3" style="color: var(--bs-indigo);" width="100" height="100" aria-hidden="true"><use xlink:href="#bootstrap"></use></svg>
-  <h1 class="text-body-emphasis" >Welcome back, commander</h1>
-  <p class="col-lg-8 mx-auto fs-5 text-muted" >
- There are currently <span th:text="${eventNumber}"></span> events in the database.
-  </p>
-  <!-- <p class="col-lg-8 mx-auto fs-5 text-muted" >th:text="${event.location}"</p>
-  <p class="col-lg-8 mx-auto fs-5 text-muted" >th:text="${event.time}"</p>
-  
-  FIXME: Date should be formatted
-  <p class="col-lg-8 mx-auto fs-5 text-muted" >th:text="${event.date}"</p> -->
 
+    event admin panel
 
-  <div class="d-inline-flex gap-2 mb-5">
-
-  <!-- <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
-  Visit
-  </button> -->
-  <!-- <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button">
-  Like
-  </button> -->
-
-  </div>
   </div>
 
 </div>

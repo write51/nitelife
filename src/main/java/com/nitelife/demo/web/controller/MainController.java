@@ -80,6 +80,17 @@ public class MainController {
         return "suggest";
     }
 
+    @GetMapping("/adminpanel")
+    public String redirectToAdminPanel(final Model model) {
+        model.addAttribute("eventNumber", this.eventService.all().size());
+        return "adminpanel";
+    }
+
+    @GetMapping("/adminpanel/events")
+    public String redirectToAdminPanel() {
+        return "adminpanelevents";
+    }
+
     @PostMapping("/submitlogin")
     public String submitLogin(@RequestBody String loginCredentials) {
         System.out.println("loginCredentials -> " + "'" + loginCredentials + "'");
