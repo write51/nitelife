@@ -12,4 +12,5 @@ import java.util.List;
 public interface EventRepository extends JpaRepository<Event, Long> {
     Page<Event> findAll(Pageable pageable);
     List<Event> findAllByDate(Date date);
+    List<Event> findAllByDateAndCategory(Date date, String category);
 }

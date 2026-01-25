@@ -53,7 +53,28 @@ public class EventController {
     }*/
 
     @GetMapping("/{year}/{month}/{day}")
-    public String getEventByDate(@PathVariable String year, @PathVariable String month, @PathVariable String day, final Model model) {
+    public String getEventByDate(@PathVariable String year, @PathVariable String month, @PathVariable String day, @RequestParam(required = false) String filterCategory, final Model model) {
+
+        System.out.println(filterCategory);
+
+        if (filterCategory != null) {
+            try {
+                String date = year + "-" + month + "-" + day;
+
+                model.addAttribute("events0", this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(date), filterCategory));
+                model.addAttribute("events1", this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(date)), filterCategory));
+                model.addAttribute("events2", this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(date))), filterCategory));
+                model.addAttribute("events3", this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(getForwardLinkNoReplace(date)))), filterCategory));
+
+                model.addAttribute("backLink", "http://localhost:8080/api/events/" + getBackLink(date));
+                model.addAttribute("forwardLink", "http://localhost:8080/api/events/" + getForwardLink(date));
+
+                return "date";
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+
         try {
             String date = year + "-" + month + "-" + day;
 
@@ -69,7 +90,10 @@ public class EventController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        }
     }
+
 
 
 

@@ -66,6 +66,14 @@ public class EventService {
         }
     }
 
+    public List<Event> getByDateAndFilter(Date date, String filterCategory) {
+        try {
+            return repository.findAllByDateAndCategory(date, filterCategory);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Event create(Event event) {
         return repository.save(event);
     }
