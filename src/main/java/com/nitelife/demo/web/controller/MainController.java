@@ -81,7 +81,7 @@ public class MainController {
     @GetMapping("/adminpanel")
     public String redirectToAdminPanel(final Model model) {
         model.addAttribute("eventNumber", this.eventService.all().size());
-        return "adminpanel";
+        return "admin/adminpanel";
     }
 
     @GetMapping("/adminpanel/events")
@@ -90,7 +90,7 @@ public class MainController {
             model.addAttribute("events", this.eventService.admineventsPagesGet("0"));
             model.addAttribute("previousPage", "0");
             model.addAttribute("nextPage", "1");
-            return "adminpanelevents";
+            return "admin/adminpanelevents";
         }
         model.addAttribute("events", this.eventService.admineventsPagesGet(page));
         if (Integer.valueOf(page) >= 1) {
@@ -99,7 +99,7 @@ public class MainController {
             model.addAttribute("previousPage", "0");
         }
         model.addAttribute("nextPage", String.valueOf(Integer.valueOf(page) + 1));
-        return "adminpanelevents";
+        return "admin/adminpanelevents";
     }
 
     @GetMapping("/adminpanel/events/delete/{id}")
@@ -164,20 +164,20 @@ public class MainController {
 
         Event updated = this.eventService.update(event, id);
 
-        return "adminpanelevents";
+        return "admin/adminpanelevents";
     }
 
     @GetMapping("/adminpanel/events/delete/{id}/confirm")
     public String deleteAreYouSureConfirm(@PathVariable Long id, final Model model) {
         this.eventService.delete(id);
-        return "adminpanelevents";
+        return "admin/adminpanelevents";
     }
 
     @PostMapping("/submitlogin")
     public String submitLogin(@RequestBody String loginCredentials) {
         System.out.println("loginCredentials -> " + "'" + loginCredentials + "'");
         if (Objects.equals(loginCredentials, "uname=admin&pword=admin")) {
-            return "adminpanel";
+            return "admin/adminpanel";
         }
         return "index";
     }
