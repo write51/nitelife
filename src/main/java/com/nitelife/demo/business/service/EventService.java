@@ -8,94 +8,68 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class EventService {
-    private final EventRepository repository;
 
     @Autowired
-    public EventService(EventRepository bookRepository) {
-        this.repository = bookRepository;
+    private EventRepository eventRepository;
+
+    public EventService() {
+        super();
     }
 
     public List<Event> all() {
-        return repository.findAll();
+        return eventRepository.findAll();
     }
 
     public Page<Event> findAll(Pageable paging) {
-        return repository.findAll(paging);
+        return eventRepository.findAll(paging);
     }
 
     public List<Event> admineventsPagesGet(String page) {
-
-//        DEFAULT PAGE: 0
-//        DEFAULT SIZE: 32
-//        DEFAULT SORT: id
-
-        Pageable paging = PageRequest.of(Integer.valueOf(page), 32, Sort.by("id"));
+        /*
+        DEFAULT PAGE: 0
+        DEFAULT SIZE: 32
+        DEFAULT SORT: id
+        */
+        Pageable paging = PageRequest.of(Integer.parseInt(page), 32, Sort.by("id"));
         Page<Event> pages;
-
-        try {
-
-            pages = repository.findAll(paging);
-
-            return pages.getContent();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        pages = eventRepository.findAll(paging);
+        return pages.getContent();
     }
 
     public Event get(Long id) {
-        try {
-            return repository.findById(id).get();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return eventRepository.findById(id).get();
     }
 
     public List<Event> getByDate(Date date) {
-        try {
-            return repository.findAllByDate(date);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return eventRepository.findAllByDate(date);
     }
 
     public List<Event> getByDateAndFilter(Date date, String filterCategory) {
-        try {
-            return repository.findAllByDateAndCategory(date, filterCategory);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return eventRepository.findAllByDateAndCategory(date, filterCategory);
     }
 
     public Event create(Event event) {
-        return repository.save(event);
+        return eventRepository.save(event);
     }
 
     public Event update(Event event, Long id) {
-
-        Optional<Event> toUpdate = repository.findById(id);
-
+        Optional<Event> toUpdate = eventRepository.findById(id);
         if (toUpdate.isEmpty()) {
             throw new RuntimeException();
         }
-
         Event b = toUpdate.get();
-
-
-        repository.save(b);
-
+        eventRepository.save(b);
         return b;
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        eventRepository.deleteById(id);
     }
 
 }
