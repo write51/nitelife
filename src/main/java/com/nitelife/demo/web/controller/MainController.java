@@ -5,7 +5,6 @@ import com.nitelife.demo.business.service.EventService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +15,7 @@ import java.util.Objects;
 @Controller
 public class MainController {
 
-    private final EventService eventService;
+    private EventService eventService;
 
     private final String CURRENT_DATE = "2025-02-10";
 
@@ -50,7 +49,6 @@ public class MainController {
             return format.format(calendar.getTime()).replace("-", "/");
     }
 
-
     @GetMapping("/")
     public String redirectToIndex(final Model model) {
         try {
@@ -58,12 +56,8 @@ public class MainController {
             model.addAttribute("events1", this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-02")));
             model.addAttribute("events2", this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-03")));
             model.addAttribute("events3", this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-04")));
-
             model.addAttribute("backLink", "http://localhost:8080/api/events/" + getBackLink("2025-01-01"));
             model.addAttribute("forwardLink", "http://localhost:8080/api/events/" + getForwardLink("2025-01-01"));
-
-
-
             return "index";
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -156,7 +150,6 @@ public class MainController {
             category = "";
         }
 
-
         Event event = this.eventService.get(id);
 
         event.setName(name);
@@ -169,8 +162,6 @@ public class MainController {
 
         return "adminpanelevents";
     }
-
-
 
     @GetMapping("/adminpanel/events/delete/{id}/confirm")
     public String deleteAreYouSureConfirm(@PathVariable Long id, final Model model) {
@@ -186,10 +177,6 @@ public class MainController {
         }
         return "index";
     }
-
-//    private Event eventStringToObject(String eventDetails) {
-//
-//    }
 
     @PostMapping("/suggestevent")
     public String suggestAnEvent(@RequestBody String eventDetails) throws ParseException {
@@ -220,4 +207,5 @@ public class MainController {
 
         return "index";
     }
+
 }

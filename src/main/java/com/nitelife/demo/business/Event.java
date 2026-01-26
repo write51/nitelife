@@ -24,7 +24,6 @@ public class Event {
     public Event() {
     }
 
-
     public Event(Long id, String name, Date date, String time, String location, String price, String category, String description, String link) {
         this.id = id;
         this.name = name;
