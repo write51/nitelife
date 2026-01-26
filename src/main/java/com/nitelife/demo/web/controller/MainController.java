@@ -53,24 +53,13 @@ public class MainController {
     @GetMapping("/")
     public String redirectToIndex(final Model model) {
         try {
-
-
-            /*
-            model.addAttribute("events0", this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-01")));
-            model.addAttribute("events1", this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-02")));
-            model.addAttribute("events2", this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-03")));
-            model.addAttribute("events3", this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-04")));
-            */
-
             List<List<Event>> mainList = List.of(
-            this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-01")), /* Today */
-            this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-02")), /* Today + 1 */
-            this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-03")), /* Today + 2 */
-            this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-04"))  /* Today + 3 */
+                this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-01")), /* Today */
+                this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-02")), /* Today + 1 */
+                this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-03")), /* Today + 2 */
+                this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-04"))  /* Today + 3 */
             );
-
             model.addAttribute("mainList", mainList);
-
             model.addAttribute("backLink", "http://localhost:8080/api/events/" + getBackLink("2025-01-01"));
             model.addAttribute("forwardLink", "http://localhost:8080/api/events/" + getForwardLink("2025-01-01"));
             return "index";
