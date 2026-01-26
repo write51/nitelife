@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/events")
@@ -35,10 +36,13 @@ public class EventController {
         if (filterCategory != null) {
             try {
                 String date = year + "-" + month + "-" + day;
-                model.addAttribute("events0", this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(date), filterCategory));
-                model.addAttribute("events1", this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(date)), filterCategory));
-                model.addAttribute("events2", this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(date))), filterCategory));
-                model.addAttribute("events3", this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(getForwardLinkNoReplace(date)))), filterCategory));
+                List<List<Event>> mainList = List.of(
+                    this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(date), filterCategory), /* Today */
+                    this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(date)), filterCategory), /* Today + 1 */
+                    this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(date))), filterCategory), /* Today + 2 */
+                    this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(getForwardLinkNoReplace(date)))), filterCategory)  /* Today + 3 */
+                );
+                model.addAttribute("mainList", mainList);
                 model.addAttribute("backLink", "http://localhost:8080/api/events/" + getBackLink(date) + "?filterCategory=" + filterCategory);
                 model.addAttribute("forwardLink", "http://localhost:8080/api/events/" + getForwardLink(date) + "?filterCategory=" + filterCategory);
                 model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
@@ -50,10 +54,13 @@ public class EventController {
         } else {
             try {
                 String date = year + "-" + month + "-" + day;
-                model.addAttribute("events0", this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(date)));
-                model.addAttribute("events1", this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(date))));
-                model.addAttribute("events2", this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(date)))));
-                model.addAttribute("events3", this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(getForwardLinkNoReplace(date))))));
+                List<List<Event>> mainList = List.of(
+                    this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(date)), /* Today */
+                    this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(date))), /* Today + 1 */
+                    this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(date)))), /* Today + 2 */
+                    this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(getForwardLinkNoReplace(date))))) /* Today + 3 */
+                );
+                model.addAttribute("mainList", mainList);
                 model.addAttribute("backLink", "http://localhost:8080/api/events/" + getBackLink(date));
                 model.addAttribute("forwardLink", "http://localhost:8080/api/events/" + getForwardLink(date));
                 model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
