@@ -212,4 +212,27 @@ public class MainController {
         return "index";
     }
 
+
+    @GetMapping("/calendar")
+    public String adminEdit(final Model model) throws ParseException {
+
+        List<List<Event>> eventsPerMonth = new java.util.ArrayList<>(List.of());
+
+        for (int i = 1; i < 30; i++) {
+            List<Event> eventList;
+            System.out.println("STR ---> " + "2025-01-0" + i);
+            if (i < 10) {
+                eventList = this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-0" + i));
+            } else {
+                eventList = this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-" + i));
+            }
+            System.out.println("SIZE -------> " + eventList.size());
+            eventsPerMonth.add(eventList);
+        }
+
+        model.addAttribute("eventsPerMonth", eventsPerMonth);
+
+        return "calendar";
+    }
+
 }
