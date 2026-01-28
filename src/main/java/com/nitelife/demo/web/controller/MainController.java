@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -212,25 +209,45 @@ public class MainController {
         return "index";
     }
 
-
     @GetMapping("/calendar")
     public String adminEdit(final Model model) throws ParseException {
 
-        List<List<Event>> eventsPerMonth = new java.util.ArrayList<>(List.of());
+        // TODO: Algorithm to calculate monthly events.
 
-        for (int i = 1; i < 30; i++) {
-            List<Event> eventList;
-            System.out.println("STR ---> " + "2025-01-0" + i);
+        List<List<Event>> week1 = new java.util.ArrayList<>(List.of());
+        List<List<Event>> week2 = new java.util.ArrayList<>(List.of());
+        List<List<Event>> week3 = new java.util.ArrayList<>(List.of());
+        List<List<Event>> week4 = new java.util.ArrayList<>(List.of());
+        List<List<Event>> week5 = new java.util.ArrayList<>(List.of());
+
+        List<Event> eventList;
+        week1.add(this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-01")));
+        week1.add(this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-02")));
+        week1.add(this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-03")));
+        week1.add(this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-04")));
+        week1.add(this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-05")));
+        for (int i = 6; i < 13; i++) {
             if (i < 10) {
-                eventList = this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-0" + i));
+                week2.add(this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-0" + i)));
             } else {
-                eventList = this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-" + i));
+                week2.add(this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-" + i)));
             }
-            System.out.println("SIZE -------> " + eventList.size());
-            eventsPerMonth.add(eventList);
+        }
+        for (int i = 13; i < 20; i++) {
+            week3.add(this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-" + i)));
+        }
+        for (int i = 20; i < 27; i++) {
+            week4.add(this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-" + i)));
+        }
+        for (int i = 27; i < 32; i++) {
+            week5.add(this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-" + i)));
         }
 
-        model.addAttribute("eventsPerMonth", eventsPerMonth);
+        model.addAttribute("week1", week1);
+        model.addAttribute("week2", week2);
+        model.addAttribute("week3", week3);
+        model.addAttribute("week4", week4);
+        model.addAttribute("week5", week5);
 
         return "calendar";
     }

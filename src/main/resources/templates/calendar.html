@@ -20,7 +20,7 @@
         </a>
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="http://localhost:8080" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Calendar</a></li>
+          <li><a href="http://localhost:8080/calendar" class="nav-link px-2 text-white">Calendar</a></li>
         </ul>
         <div class="text-end">
           <a href="http://localhost:8080/login"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
@@ -31,37 +31,80 @@
   </header>
 
   <!-- Navigation -->
-  <div class="container p-3">
+  <!-- <div class="container p-3">
     <div class="row m-auto w-50">
       <div class="column w-auto m-auto">
         <a th:href="${backLink}"><button type="button" class="btn btn-primary btn-sm">Back</button></a>
         <a th:href="${forwardLink}"><button type="button" class="btn btn-primary btn-sm">Forward</button></a>
       </div>
     </div>
-  </div>
+  </div> -->
+
+  <br>
 
   <!-- Main container -->
-  <div class="container-fluid">
-    <div class="row mb-4 w-100 m-auto">
-      <!-- Event column -->
-      <div class="col" th:each="eventList : ${eventsPerMonth}">
-        <!-- Event -->
-        <div class="list-group" th:each="e : ${eventList}">
-          <a th:href="'http://localhost:8080/api/events/' + ${e.id}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-            <img src="http://localhost:8080/twbs.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0">
-            <div class="d-flex gap-2 w-100 justify-content-between">
-              <div>
-                <h6 class="mb-0 fw-bold" th:text="${e.name}">...</h6>
-                <p class="mb-0 opacity-75" th:text="${e.time}">...</p>
-                <p class="mb-0 opacity-75" th:text="${e.location}">...</p>
-                <p class="mb-0 opacity-75 fst-italic" th:text="${e.category}">...</p>
+  <div class="container">
+    <div class="row m-auto">
+      <!-- Table -->
+      <!-- FIXME: See MainController.java:adminEdit(...) -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+          <th scope="col">Monday</th>
+          <th scope="col">Tuesday</th>
+          <th scope="col">Wednesday</th>
+          <th scope="col">Thursday</th>
+          <th scope="col">Friday</th>
+          <th scope="col">Saturday</th>
+          <th scope="col">Sunday</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Week 1 -->
+          <tr>
+            <td th:each="events : ${week1}">
+              <div th:each="e : ${events}">
+                <a th:href="'http://localhost:8080/api/events/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-body"><small th:text="${e.name}"></small></a>
               </div>
-            </div>
-          </a>
-        </div>
-      </div>
+            </td>
+          </tr>
+          <!-- Week 2 -->
+          <tr>
+            <td th:each="events : ${week2}">
+              <div th:each="e : ${events}">
+                <a th:href="'http://localhost:8080/api/events/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-body"><small th:text="${e.name}"></small></a>
+              </div>
+            </td>
+          </tr>
+          <!-- Week 3 -->
+          <tr>
+            <td th:each="events : ${week3}">
+              <div th:each="e : ${events}">
+                <a th:href="'http://localhost:8080/api/events/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-body"><small th:text="${e.name}"></small></a>
+              </div>
+            </td>
+          </tr>
+          <!-- Week 4 -->
+          <tr>
+            <td th:each="events : ${week4}">
+              <div th:each="e : ${events}">
+                <a th:href="'http://localhost:8080/api/events/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-body"><small th:text="${e.name}"></small></a>
+              </div>
+            </td>
+          </tr>
+          <!-- Week 5 -->
+          <tr>
+            <td th:each="events : ${week5}">
+              <div th:each="e : ${events}">
+                <a th:href="'http://localhost:8080/api/events/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-body"><small th:text="${e.name}"></small></a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
