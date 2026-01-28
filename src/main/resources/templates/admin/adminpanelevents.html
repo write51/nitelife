@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nitelife</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="icon" type="image/x-icon" href="http://localhost:8080/calendar-check.svg">
 </head>
 <body>
 
@@ -84,7 +85,14 @@
 </div>
 
 <div class="col-9">
-  <table>
+  <row>
+    <div class="text-end m-auto">
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 w-50 m-auto pb-1" role="search">
+        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+      </form>
+    </div>
+  </row>
+  <table class="table table-striped">
     <tr>
       <th>ID</th>
       <th>Name</th>
@@ -101,8 +109,8 @@
       <td th:text="${e.time}">...</td>
       <td th:text="${e.location}">...</td>
       <td th:text="${e.category}">...</td>
-      <td><a th:href="'http://localhost:8080/adminpanel/events/edit/' + ${e.id}">Edit</a></td>
-      <td><a th:href="'http://localhost:8080/adminpanel/events/delete/' + ${e.id}">Delete</a></td>
+      <td><a th:href="'http://localhost:8080/adminpanel/events/edit/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Edit</a></td>
+      <td><a th:href="'http://localhost:8080/adminpanel/events/delete/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-danger">Delete</a></td>
     </tr>
     <!-- ----------------------------------------------- -->
     <tr><td><a th:href="'http://localhost:8080/adminpanel/events?page=' + ${previousPage}">Previous</a></td><td></td><td></td><td></td><td></td><td></td><td><a th:href="'http://localhost:8080/adminpanel/events?page=' + ${nextPage}">Next</a></td></tr>
