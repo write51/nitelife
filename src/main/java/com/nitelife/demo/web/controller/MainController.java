@@ -65,11 +65,40 @@ public class MainController {
         }
     }
 
+    private class LoginForm {
+        String username;
+        String password;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
+
     @GetMapping("/login")
-    public String redirectToLogin() {
+    public String redirectToLogin(Model model) {
+        model.addAttribute("loginDetails", new LoginForm());
         return "login";
     }
 
+    @PostMapping("/login")
+    public String submitLogin(@ModelAttribute LoginForm loginDetails, Model model) {
+        if (Objects.equals(loginDetails.username, "admin") && Objects.equals(loginDetails.password, "admin")) {
+            return "admin/adminpanel";
+        }
+        return "index";
+    }
 
 
     @GetMapping("/adminpanel")
@@ -167,14 +196,7 @@ public class MainController {
         return "admin/adminpanelevents";
     }
 
-    @PostMapping("/submitlogin")
-    public String submitLogin(@RequestBody String loginCredentials) {
-        System.out.println("loginCredentials -> " + "'" + loginCredentials + "'");
-        if (Objects.equals(loginCredentials, "uname=admin&pword=admin")) {
-            return "admin/adminpanel";
-        }
-        return "index";
-    }
+
 
     private class SuggestEventForm {
         String name;
