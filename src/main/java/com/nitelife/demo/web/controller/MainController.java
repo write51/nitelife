@@ -70,10 +70,7 @@ public class MainController {
         return "login";
     }
 
-    @GetMapping("/suggest")
-    public String redirectToSuggest() {
-        return "suggest";
-    }
+
 
     @GetMapping("/adminpanel")
     public String redirectToAdminPanel(final Model model) {
@@ -179,30 +176,72 @@ public class MainController {
         return "index";
     }
 
+    private class SuggestEventForm {
+        String name;
+        String date;
+        String time;
+        String description;
+        String category;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public void setCategory(String category) {
+            this.category = category;
+        }
+    }
+
+    @GetMapping("/suggestevent")
+    public String redirectToSuggest(Model model) {
+        model.addAttribute("eventDetails", new SuggestEventForm());
+        return "suggest";
+    }
+
     @PostMapping("/suggestevent")
-    public String suggestAnEvent(@RequestBody String eventDetails) throws ParseException {
-
-        // FIXME: Incoming strings should be converted from URL format to normal string.
-        String name = eventDetails.split("&")[0].split("=")[1];
-        String date = eventDetails.split("&")[1].split("=")[1];
-        String time = eventDetails.split("&")[2].split("=")[1];
-        String description = eventDetails.split("&")[3].split("=")[1];
-        String category = eventDetails.split("&")[4].split("=")[1];
-
-        /*
-        NAME: This+is+an+Fun+Event+name+and+is+really+fun
-        DATE: 19.01.2024.
-        TIME: 18%3A30
-        DESCRIPTION: Submitting+an+event+Starcarft+is+awesome+and+so+is+Warcraft+and+stuff.+Also+Tiny+Tycoon+Universe.
-        CATEGORY: Mjuzza
-        */
+    public String suggestAnEvent(@ModelAttribute SuggestEventForm eventDetails, Model model) throws ParseException {
 
         Event event = new Event();
-        event.setName(name);
+        event.setName(eventDetails.name);
+        // FIXME:
+        // Should parse date provided by form. First mangle it to correct format, then parse.
+        // event.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-10-10"));
         event.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-10-10"));
-        event.setTime(time);
-        event.setDescription(description);
-        event.setCategory(category);
+        event.setTime(eventDetails.time);
+        event.setDescription(eventDetails.description);
+        event.setCategory(eventDetails.category);
 
         eventService.create(event);
 

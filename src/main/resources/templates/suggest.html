@@ -23,11 +23,11 @@
 
             <div class="col-md-7 col-lg">
                 <!-- Form -->
-                <form class="needs-validation" novalidate="" action="http://localhost:8080/suggestevent" method="post">
+                <form class="needs-validation" novalidate="" th:action="@{/suggestevent}" th:object="${eventDetails}" method="post">
 
                     <div class="col-12">
                     <label for="address" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="address" name="eventname" placeholder="Fun event" required=""> 
+                    <input type="text" class="form-control" id="address" name="eventname" th:field="*{name}" placeholder="Fun event" required=""> 
                     <div class="invalid-feedback">Please enter event title.</div>
                     </div> 
 
@@ -35,13 +35,13 @@
 
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">Date</label>
-                            <input type="text" class="form-control" id="firstName" name="eventdate" placeholder="" value="" required="">
+                            <input type="text" class="form-control" id="firstName" th:field="*{date}" name="eventdate" placeholder="" value="" required="">
                             <div class="invalid-feedback">Valid event date is required.</div>
                         </div>
 
                         <div class="col-sm-6">
                             <label for="lastName" class="form-label">Time</label>
-                            <input type="text" class="form-control" id="lastName" name="eventtime" placeholder="" value="" required="">
+                            <input type="text" class="form-control" id="lastName" th:field="*{time}" name="eventtime" placeholder="" value="" required="">
                             <div class="invalid-feedback">Valid event time is required.</div>
                         </div>
 
@@ -55,20 +55,20 @@
 
                         <div class="col-12">
                             <label for="address" class="form-label">Description</label>
-                            <input type="text" class="form-control" id="address" name="eventdescription" placeholder="Cool event description" required=""> 
+                            <input type="text" class="form-control" id="address" name="eventdescription" th:field="*{description}" placeholder="Cool event description" required=""> 
                             <div class="invalid-feedback">Please enter some description.</div>
                         </div> 
 
                         <div class="col-md-5">
                             <label for="country" class="form-label">Category</label>
-                            <select class="form-select" id="country" name="eventcategory" required="">
-                                <option>Edukacija</option>
-                                <option selected="selected">Film</option>
-                                <option>Izložba</option>
-                                <option>Mjuzza</option>
-                                <option>Ostalo</option>
-                                <option>Predstava</option>
-                                <option>Sport</option>
+                            <select class="form-select" id="country" name="eventcategory"  th:field="*{category}" required="">
+                                <option value="Edukacija">Edukacija</option>
+                                <option selected="selected" value="Film">Film</option>
+                                <option value="Izložba">Izložba</option>
+                                <option value="Mjuzza">Mjuzza</option>
+                                <option value="Ostalo">Ostalo</option>
+                                <option value="Predstava">Predstava</option>
+                                <option value="Sport">Sport</option>
                             </select>
                             <div class="invalid-feedback">Please select a valid country.</div>
                         </div>
