@@ -207,7 +207,7 @@ public class MainController {
 
         Event updated = this.eventService.update(event, id);
 
-        return "admin/adminpanelevents";
+        return redirectToAdminPanelEvents(null, model);
     }
 
     @GetMapping("/adminpanel/events/delete/{id}/confirm")
@@ -216,8 +216,6 @@ public class MainController {
         return redirectToAdminPanelEvents(null, model);
         //return "admin/adminpanelevents";
     }
-
-
 
     private class SuggestEventForm {
         String name;
