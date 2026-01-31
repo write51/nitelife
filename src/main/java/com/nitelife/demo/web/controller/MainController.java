@@ -144,11 +144,7 @@ public class MainController {
 
     @GetMapping("/calendar")
     public String adminEdit(final Model model) throws ParseException {
-        model.addAttribute("week1", this.mainService.getCalendarWeek1());
-        model.addAttribute("week2", this.mainService.getCalendarWeek2());
-        model.addAttribute("week3", this.mainService.getCalendarWeek3());
-        model.addAttribute("week4", this.mainService.getCalendarWeek4());
-        model.addAttribute("week5", this.mainService.getCalendarWeek5());
+        model.addAttribute("calendarEvents", this.mainService.getCalendar());
         return "calendar";
     }
 

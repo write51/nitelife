@@ -74,6 +74,24 @@ public class MainService {
         return false;
     }
 
+    class CalendarEvents {
+        public List<List<Event>> week1;
+        public List<List<Event>> week2;
+        public List<List<Event>> week3;
+        public List<List<Event>> week4;
+        public List<List<Event>> week5;
+    }
+
+    public CalendarEvents getCalendar() throws ParseException {
+        CalendarEvents calendarEvents = new CalendarEvents();
+        calendarEvents.week1 = this.getCalendarWeek1();
+        calendarEvents.week2 = this.getCalendarWeek2();
+        calendarEvents.week3 = this.getCalendarWeek3();
+        calendarEvents.week4 = this.getCalendarWeek4();
+        calendarEvents.week5 = this.getCalendarWeek5();
+        return calendarEvents;
+    }
+
     public List<List<Event>> getCalendarWeek1() throws ParseException {
         List<List<Event>> week1 = new java.util.ArrayList<>(List.of());
         week1.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-01")));
@@ -83,7 +101,7 @@ public class MainService {
         week1.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-05")));
         return week1;
     }
-    
+
     public List<List<Event>> getCalendarWeek2() throws ParseException {
         List<List<Event>> week2 = new java.util.ArrayList<>(List.of());
         for (int i = 6; i < 13; i++) {

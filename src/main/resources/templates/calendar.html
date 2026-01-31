@@ -62,7 +62,7 @@
         <tbody>
           <!-- Week 1 -->
           <tr>
-            <td th:each="events : ${week1}">
+            <td th:each="events : ${calendarEvents.week1}">
               <div th:each="e : ${events}">
                 <a th:href="'http://localhost:8080/api/events/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-body"><small th:text="${e.name}"></small></a>
               </div>
@@ -70,7 +70,7 @@
           </tr>
           <!-- Week 2 -->
           <tr>
-            <td th:each="events : ${week2}">
+            <td th:each="events : ${calendarEvents.week2}">
               <div th:each="e : ${events}">
                 <a th:href="'http://localhost:8080/api/events/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-body"><small th:text="${e.name}"></small></a>
               </div>
@@ -78,7 +78,7 @@
           </tr>
           <!-- Week 3 -->
           <tr>
-            <td th:each="events : ${week3}">
+            <td th:each="events : ${calendarEvents.week3}">
               <div th:each="e : ${events}">
                 <a th:href="'http://localhost:8080/api/events/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-body"><small th:text="${e.name}"></small></a>
               </div>
@@ -86,7 +86,7 @@
           </tr>
           <!-- Week 4 -->
           <tr>
-            <td th:each="events : ${week4}">
+            <td th:each="events : ${calendarEvents.week4}">
               <div th:each="e : ${events}">
                 <a th:href="'http://localhost:8080/api/events/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-body"><small th:text="${e.name}"></small></a>
               </div>
@@ -94,7 +94,7 @@
           </tr>
           <!-- Week 5 -->
           <tr>
-            <td th:each="events : ${week5}">
+            <td th:each="events : ${calendarEvents.week5}">
               <div th:each="e : ${events}">
                 <a th:href="'http://localhost:8080/api/events/' + ${e.id}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-body"><small th:text="${e.name}"></small></a>
               </div>
