@@ -32,24 +32,13 @@ public class EventController {
 
     @GetMapping("/{year}/{month}/{day}")
     public String getEventByDate(@PathVariable String year, @PathVariable String month, @PathVariable String day, @RequestParam(required = false) String filterCategory, final Model model) throws ParseException {
-
-        if (filterCategory != null) {
-            String date = year + "-" + month + "-" + day;
-            model.addAttribute("mainList", this.eventService.getMainList(date, filterCategory));
-            model.addAttribute("backLink", this.eventService.getBackLink(date)  + "?filterCategory=" + filterCategory);
-            model.addAttribute("forwardLink", this.eventService.getForwardLink(date) + "?filterCategory=" + filterCategory);
-            model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
-            model.addAttribute("filterCategoryActive", filterCategory);
-            return "date";
-        } else {
-            String date = year + "-" + month + "-" + day;
-            model.addAttribute("mainList", this.eventService.getMainList(date));
-            model.addAttribute("backLink", this.eventService.getBackLink(date));
-            model.addAttribute("forwardLink", this.eventService.getForwardLink(date));
-            model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
-            model.addAttribute("filterCategoryActive", "notselected");
-            return "date";
-        }
+        String date = year + "-" + month + "-" + day;
+        model.addAttribute("mainList", this.eventService.getMainList(date, filterCategory));
+        model.addAttribute("backLink", this.eventService.getBackLink(date, filterCategory));
+        model.addAttribute("forwardLink", this.eventService.getForwardLink(date, filterCategory));
+        model.addAttribute("filterUrl", this.eventService.getFilterUrl(year, month, day));
+        model.addAttribute("filterCategoryActive", this.eventService.getFilterCategoryActive(filterCategory));
+        return "date";
     }
 
     @PostMapping
