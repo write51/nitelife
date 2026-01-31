@@ -31,44 +31,24 @@ public class EventController {
     }
 
     @GetMapping("/{year}/{month}/{day}")
-    public String getEventByDate(@PathVariable String year, @PathVariable String month, @PathVariable String day, @RequestParam(required = false) String filterCategory, final Model model) {
+    public String getEventByDate(@PathVariable String year, @PathVariable String month, @PathVariable String day, @RequestParam(required = false) String filterCategory, final Model model) throws ParseException {
 
         if (filterCategory != null) {
-            try {
-                String date = year + "-" + month + "-" + day;
-                List<List<Event>> mainList = List.of(
-                    this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(date), filterCategory), /* Today */
-                    this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(date)), filterCategory), /* Today + 1 */
-                    this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(date))), filterCategory), /* Today + 2 */
-                    this.eventService.getByDateAndFilter(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(getForwardLinkNoReplace(date)))), filterCategory)  /* Today + 3 */
-                );
-                model.addAttribute("mainList", mainList);
-                model.addAttribute("backLink", "http://localhost:8080/api/events/" + getBackLink(date) + "?filterCategory=" + filterCategory);
-                model.addAttribute("forwardLink", "http://localhost:8080/api/events/" + getForwardLink(date) + "?filterCategory=" + filterCategory);
-                model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
-                model.addAttribute("filterCategoryActive", filterCategory);
-                return "date";
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            String date = year + "-" + month + "-" + day;
+            model.addAttribute("mainList", this.eventService.getMainList(date, filterCategory));
+            model.addAttribute("backLink", this.eventService.getBackLink(date)  + "?filterCategory=" + filterCategory);
+            model.addAttribute("forwardLink", this.eventService.getForwardLink(date) + "?filterCategory=" + filterCategory);
+            model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
+            model.addAttribute("filterCategoryActive", filterCategory);
+            return "date";
         } else {
-            try {
-                String date = year + "-" + month + "-" + day;
-                List<List<Event>> mainList = List.of(
-                    this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(date)), /* Today */
-                    this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(date))), /* Today + 1 */
-                    this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(date)))), /* Today + 2 */
-                    this.eventService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(getForwardLinkNoReplace(date))))) /* Today + 3 */
-                );
-                model.addAttribute("mainList", mainList);
-                model.addAttribute("backLink", "http://localhost:8080/api/events/" + getBackLink(date));
-                model.addAttribute("forwardLink", "http://localhost:8080/api/events/" + getForwardLink(date));
-                model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
-                model.addAttribute("filterCategoryActive", "notselected");
-                return "date";
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            String date = year + "-" + month + "-" + day;
+            model.addAttribute("mainList", this.eventService.getMainList(date));
+            model.addAttribute("backLink", this.eventService.getBackLink(date));
+            model.addAttribute("forwardLink", this.eventService.getForwardLink(date));
+            model.addAttribute("filterUrl", "http://localhost:8080/api/events/" + year + '/' + month + '/' + day + "?filterCategory=");
+            model.addAttribute("filterCategoryActive", "notselected");
+            return "date";
         }
     }
 
@@ -85,45 +65,6 @@ public class EventController {
     @DeleteMapping("/{id}")
     void deleteEvent(@PathVariable Long id) {
         eventService.delete(id);
-    }
-
-    private String getBackLink(String currentDateString) throws ParseException {
-
-        Date currentDate = new SimpleDateFormat("yyyy-MM-dd").parse(currentDateString);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        calendar.add(Calendar.DAY_OF_YEAR, -1);
-
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        return format.format(calendar.getTime()).replace("-", "/");
-    }
-
-    private String getForwardLink(String currentDateString) throws ParseException {
-
-        Date currentDate = new SimpleDateFormat("yyyy-MM-dd").parse(currentDateString);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        return format.format(calendar.getTime()).replace("-", "/");
-    }
-
-    private String getForwardLinkNoReplace(String currentDateString) throws ParseException {
-
-        Date currentDate = new SimpleDateFormat("yyyy-MM-dd").parse(currentDateString);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        return format.format(calendar.getTime());
     }
 
 }

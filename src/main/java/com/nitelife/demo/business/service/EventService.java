@@ -8,6 +8,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -88,6 +93,80 @@ public class EventService {
 
     public void delete(Long id) {
         eventRepository.deleteById(id);
+    }
+
+    public List<List<Event>> getMainList(String date) throws ParseException {
+        List<List<Event>> mainList = List.of(
+                this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse(date)), /* Today */
+                this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(date))), /* Today + 1 */
+                this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(date)))), /* Today + 2 */
+                this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(getForwardLinkNoReplace(date))))) /* Today + 3 */
+        );
+        return mainList;
+    }
+    public List<List<Event>> getMainList(String date, String filterCategory) throws ParseException {
+        List<List<Event>> mainList = List.of(
+            this.eventRepository.findAllByDateAndCategory(new SimpleDateFormat("yyyy-MM-dd").parse(date), filterCategory), /* Today */
+            this.eventRepository.findAllByDateAndCategory(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(date)), filterCategory), /* Today + 1 */
+            this.eventRepository.findAllByDateAndCategory(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(date))), filterCategory), /* Today + 2 */
+            this.eventRepository.findAllByDateAndCategory(new SimpleDateFormat("yyyy-MM-dd").parse(getForwardLinkNoReplace(getForwardLinkNoReplace(getForwardLinkNoReplace(date)))), filterCategory)  /* Today + 3 */
+        );
+        return mainList;
+    }
+
+
+
+    public String getBackLink(String currentDateString) throws ParseException {
+
+        Date currentDate = new SimpleDateFormat("yyyy-MM-dd").parse(currentDateString);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        return "http://localhost:8080/api/events/" + format.format(calendar.getTime()).replace("-", "/");
+
+    }
+
+//    private String getForwardLinkNoReplace(String currentDateString) throws ParseException {
+//
+//        Date currentDate = new SimpleDateFormat("yyyy-MM-dd").parse(currentDateString);
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(currentDate);
+//        calendar.add(Calendar.DAY_OF_YEAR, 1);
+//
+//        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        return format.format(calendar.getTime());
+//    }
+
+    public String getForwardLink(String currentDateString) throws ParseException {
+
+        Date currentDate = new SimpleDateFormat("yyyy-MM-dd").parse(currentDateString);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        return "http://localhost:8080/api/events/" + format.format(calendar.getTime()).replace("-", "/");
+    }
+
+    public String getForwardLinkNoReplace(String currentDateString) throws ParseException {
+
+        Date currentDate = new SimpleDateFormat("yyyy-MM-dd").parse(currentDateString);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        return format.format(calendar.getTime());
     }
 
 }
