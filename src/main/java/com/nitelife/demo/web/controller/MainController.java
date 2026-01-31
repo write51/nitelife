@@ -95,11 +95,10 @@ public class MainController {
     @PostMapping("/login")
     public String submitLogin(@ModelAttribute LoginForm loginDetails, Model model) {
         if (Objects.equals(loginDetails.username, "admin") && Objects.equals(loginDetails.password, "admin")) {
-            return "admin/adminpanel";
+            return redirectToAdminPanel(model);
         }
         return "index";
     }
-
 
     @GetMapping("/adminpanel")
     public String redirectToAdminPanel(final Model model) {
