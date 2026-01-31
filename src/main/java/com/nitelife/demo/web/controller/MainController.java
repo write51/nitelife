@@ -18,8 +18,6 @@ public class MainController {
     private EventService eventService;
     private MainService mainService;
 
-    private final String CURRENT_DATE = "2025-02-10";
-
     public MainController(EventService eventService, MainService mainService) {
         this.eventService = eventService;
         this.mainService = mainService;
@@ -32,8 +30,6 @@ public class MainController {
         model.addAttribute("forwardLink", this.mainService.getForwardLink());
         return "index";
     }
-
-
 
     @GetMapping("/login")
     public String redirectToLogin(Model model) {
@@ -57,19 +53,9 @@ public class MainController {
 
     @GetMapping("/adminpanel/events")
     public String redirectToAdminPanelEvents(@RequestParam(required = false) String page, final Model model) {
-        if (page==null) {
-            model.addAttribute("events", this.eventService.admineventsPagesGet("0"));
-            model.addAttribute("previousPage", "0");
-            model.addAttribute("nextPage", "1");
-            return "admin/adminpanelevents";
-        }
         model.addAttribute("events", this.eventService.admineventsPagesGet(page));
-        if (Integer.valueOf(page) >= 1) {
-            model.addAttribute("previousPage", String.valueOf(Integer.valueOf(page) - 1));
-        } else if (Integer.valueOf(page) == 0) {
-            model.addAttribute("previousPage", "0");
-        }
-        model.addAttribute("nextPage", String.valueOf(Integer.valueOf(page) + 1));
+        model.addAttribute("previousPage", this.eventService.admineventsPagesGetPreviousPage(page));
+        model.addAttribute("nextPage", this.eventService.admineventsPagesGetNextPage(page));
         return "admin/adminpanelevents";
     }
 
@@ -113,10 +99,7 @@ public class MainController {
     public String deleteAreYouSureConfirm(@PathVariable Long id, final Model model) {
         this.eventService.delete(id);
         return redirectToAdminPanelEvents(null, model);
-        //return "admin/adminpanelevents";
     }
-
-
 
     @GetMapping("/suggestevent")
     public String redirectToSuggest(Model model) {

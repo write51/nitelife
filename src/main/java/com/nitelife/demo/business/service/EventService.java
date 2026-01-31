@@ -36,10 +36,28 @@ public class EventService {
         DEFAULT SIZE: 32
         DEFAULT SORT: id
         */
+        if (page == null) {
+            page = "0";
+        }
         Pageable paging = PageRequest.of(Integer.parseInt(page), 32, Sort.by("id"));
         Page<Event> pages;
         pages = eventRepository.findAll(paging);
         return pages.getContent();
+    }
+
+    public String admineventsPagesGetPreviousPage(String page) {
+        if (page == null || (Integer.parseInt(page) == 0)) {
+            return "0";
+        } else if (Integer.parseInt(page) >= 1) {
+            return String.valueOf(Integer.parseInt(page) - 1);
+        }
+        return "0";
+    }
+    public String admineventsPagesGetNextPage(String page) {
+        if (page == null) {
+            return "1";
+        }
+        return String.valueOf(Integer.parseInt(page) + 1);
     }
 
     public Event get(Long id) {
