@@ -132,58 +132,78 @@ public class MainController {
         return "admin/delete_confirmation";
     }
 
+    private class EditEventAdminPanelForm {
+        String name;
+        String date;
+        String time;
+        String description;
+        String category;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public void setCategory(String category) {
+            this.category = category;
+        }
+    }
+
     @GetMapping("/adminpanel/events/edit/{id}")
     public String adminEdit(@PathVariable Long id, final Model model) {
-        model.addAttribute("event", this.eventService.get(id));
+        EditEventAdminPanelForm eventDetails = new EditEventAdminPanelForm();
+        Event event = this.eventService.get(id);
+        eventDetails.setName(event.getName());
+        eventDetails.setDate("2025-01-01"); // FIXME: Date should be Date, not String.
+        eventDetails.setTime(event.getTime());
+        eventDetails.setDescription(event.getDescription());
+        eventDetails.setCategory(event.getCategory());
+        model.addAttribute("eventId", id);
+        model.addAttribute("eventDetails", eventDetails);
         return "admin/edit";
     }
 
-    @PostMapping("/adminpanel/events/edit/{id}/update")
-    public String adminEditUpdateEvent(@PathVariable Long id, @RequestBody String eventDetails) throws ParseException {
-        // http://localhost:8080/adminpanel/events/edit/12/update
-
-        //Event event = model.addAttribute("event", this.eventService.get(id));
-
-        // FIXME: Hehe...
-        String name = "";
-        String date = "";
-        String time = "";
-        String description = "";
-        String category = "";
-
-        try {
-            name = eventDetails.split("&")[0].split("=")[1];
-        } catch (Exception e) {
-            name="";
-        }
-        try {
-            date = eventDetails.split("&")[1].split("=")[1];
-        } catch (Exception e) {
-            date = "";
-        }
-        try {
-            time = eventDetails.split("&")[2].split("=")[1];
-        } catch (Exception e) {
-            time = "";
-        }
-        try {
-            description = eventDetails.split("&")[3].split("=")[1];
-        } catch (Exception e) {
-            description = "";
-        }
-        try {
-            category = eventDetails.split("&")[4].split("=")[1];
-        } catch (Exception e) {
-            category = "";
-        }
+    @PostMapping("/adminpanel/events/edit/{id}")
+    public String adminEditUpdateEvent(@PathVariable Long id, @ModelAttribute EditEventAdminPanelForm eventDetails, Model model) throws ParseException {
 
         Event event = this.eventService.get(id);
 
-        event.setName(name);
+        event.setName(eventDetails.name);
         event.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-10-10"));
-        event.setTime(time);
-        event.setDescription(description);
-        event.setCategory(category);
+        event.setTime(eventDetails.time);
+        event.setDescription(eventDetails.description);
+        event.setCategory(eventDetails.category);
 
         Event updated = this.eventService.update(event, id);
 
@@ -193,7 +213,8 @@ public class MainController {
     @GetMapping("/adminpanel/events/delete/{id}/confirm")
     public String deleteAreYouSureConfirm(@PathVariable Long id, final Model model) {
         this.eventService.delete(id);
-        return "admin/adminpanelevents";
+        return redirectToAdminPanelEvents(null, model);
+        //return "admin/adminpanelevents";
     }
 
 

@@ -86,21 +86,21 @@
 
 <div class="col-9">
   <!---------------------------------------------------->
-  <form class="needs-validation" novalidate="" th:action="'http://localhost:8080/adminpanel/events/edit/' + ${event.id} + '/update'" method="post">
+  <form class="needs-validation" novalidate="" th:action="@{/adminpanel/events/edit/} + ${eventId}" th:object="${eventDetails}" method="post">
 
     <div class="col-12">
-    <label for="address" class="form-label">Name</label>
-    <input type="text" class="form-control" id="address" name="eventname" th:value="${event.name}" required=""> 
-    <div class="invalid-feedback">
-    Please enter event title.
-    </div>
+      <label for="address" class="form-label">Name</label>
+      <input type="text" class="form-control" id="address" name="eventname" th:field="*{name}" th:value="${eventDetails.name}" required=""> 
+      <div class="invalid-feedback">
+      Please enter event title.
+      </div>
     </div> 
 
-        <div class="row g-3">
+    <div class="row g-3">
 
     <div class="col-sm-6">
         <label for="firstName" class="form-label">Date</label>
-        <input type="text" class="form-control" id="firstName" name="eventdate" th:value="${event.date}" placeholder="" value="" required="">
+        <input type="text" class="form-control" id="firstName" name="eventdate" th:field="*{date}" th:value="${eventDetails.date}" placeholder="" value="" required="">
         <div class="invalid-feedback">
         Valid event date is required.
         </div>
@@ -108,7 +108,7 @@
 
     <div class="col-sm-6">
     <label for="lastName" class="form-label">Time</label>
-    <input type="text" class="form-control" id="lastName" name="eventtime" th:value="${event.time}" placeholder="" value="" required="">
+    <input type="text" class="form-control" id="lastName" name="eventtime" th:field="*{time}" th:value="${eventDetails.time}" placeholder="" value="" required="">
     <div class="invalid-feedback">
     Valid event time is required.
     </div>
@@ -116,21 +116,21 @@
 
     <div class="col-12">
         <label for="address" class="form-label">Description</label>
-        <input type="text" class="form-control" id="address" name="eventdescription" th:value="${event.description}" placeholder="Cool event description" required=""> 
+        <input type="text" class="form-control" id="address" name="eventdescription" th:field="*{description}" th:value="${eventDetails.description}" placeholder="Cool event description" required=""> 
         <div class="invalid-feedback">
         Please enter some description.
         </div>
     </div> 
 
     <div class="col-md-5"> <label for="country" class="form-label">Category</label>
-        <select class="form-select" id="country" name="eventcategory" required="" th:switch="${event.category}">
-          <option th:selected="${event.category} == 'Edukacija'">Edukacija</option>
-          <option th:selected="${event.category} == 'Film'">Film</option>
-          <option th:selected="${event.category} == 'Izložba'">Izložba</option>
-          <option th:selected="${event.category} == 'Mjuzza'">Mjuzza</option>
-          <option th:selected="${event.category} == 'Ostalo'">Ostalo</option>
-          <option th:selected="${event.category} == 'Predstava'">Predstava</option>
-          <option th:selected="${event.category} == 'Sport'">Sport</option>
+        <select class="form-select" id="country" name="eventcategory" th:field="*{category}" required="" th:switch="${eventDetails.category}">
+          <option th:selected="${eventDetails.category} == 'Edukacija'" value="Edukacija">Edukacija</option>
+          <option th:selected="${eventDetails.category} == 'Film'" value="Film">Film</option>
+          <option th:selected="${eventDetails.category} == 'Izložba'" value="Izložba">Izložba</option>
+          <option th:selected="${eventDetails.category} == 'Mjuzza'" value="Mjuzza">Mjuzza</option>
+          <option th:selected="${eventDetails.category} == 'Ostalo'" value="Ostalo">Ostalo</option>
+          <option th:selected="${eventDetails.category} == 'Predstava'" value="Predstava">Predstava</option>
+          <option th:selected="${eventDetails.category} == 'Sport'" value="Sport">Sport</option>
         </select>
         <div class="invalid-feedback">
         Please select a valid country.
