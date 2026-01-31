@@ -73,4 +73,51 @@ public class MainService {
         }
         return false;
     }
+
+    public List<List<Event>> getCalendarWeek1() throws ParseException {
+        List<List<Event>> week1 = new java.util.ArrayList<>(List.of());
+        week1.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-01")));
+        week1.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-02")));
+        week1.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-03")));
+        week1.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-04")));
+        week1.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-05")));
+        return week1;
+    }
+    
+    public List<List<Event>> getCalendarWeek2() throws ParseException {
+        List<List<Event>> week2 = new java.util.ArrayList<>(List.of());
+        for (int i = 6; i < 13; i++) {
+            if (i < 10) {
+                week2.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-0" + i)));
+            } else {
+                week2.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-" + i)));
+            }
+        }
+        return week2;
+    }
+
+    public List<List<Event>> getCalendarWeek3() throws ParseException {
+        List<List<Event>> week3 = new java.util.ArrayList<>(List.of());
+        for (int i = 13; i < 20; i++) {
+            week3.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-" + i)));
+        }
+        return week3;
+    }
+
+    public List<List<Event>> getCalendarWeek4() throws ParseException {
+        List<List<Event>> week4 = new java.util.ArrayList<>(List.of());
+        for (int i = 20; i < 27; i++) {
+            week4.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-" + i)));
+        }
+        return week4;
+    }
+
+    public List<List<Event>> getCalendarWeek5() throws ParseException {
+        List<List<Event>> week5 = new java.util.ArrayList<>(List.of());
+        for (int i = 27; i < 32; i++) {
+            week5.add(this.eventRepository.findAllByDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-01-" + i)));
+        }
+        return week5;
+    }
+
 }
