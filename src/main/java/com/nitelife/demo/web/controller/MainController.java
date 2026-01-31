@@ -3,6 +3,7 @@ package com.nitelife.demo.web.controller;
 import com.nitelife.demo.business.Event;
 import com.nitelife.demo.business.service.EventService;
 import com.nitelife.demo.business.service.MainService;
+import com.nitelife.demo.web.forms.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,26 +33,7 @@ public class MainController {
         return "index";
     }
 
-    private class LoginForm {
-        String username;
-        String password;
 
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-    }
 
     @GetMapping("/login")
     public String redirectToLogin(Model model) {
@@ -61,7 +43,7 @@ public class MainController {
 
     @PostMapping("/login")
     public String submitLogin(@ModelAttribute LoginForm loginDetails, Model model) {
-        if (Objects.equals(loginDetails.username, "admin") && Objects.equals(loginDetails.password, "admin")) {
+        if (Objects.equals(loginDetails.getUsername(), "admin") && Objects.equals(loginDetails.getPassword(), "admin")) {
             return redirectToAdminPanel(model);
         }
         return "index";
@@ -98,53 +80,7 @@ public class MainController {
         return "admin/delete_confirmation";
     }
 
-    private class EditEventAdminPanelForm {
-        String name;
-        String date;
-        String time;
-        String description;
-        String category;
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public void setDate(String date) {
-            this.date = date;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public String getCategory() {
-            return category;
-        }
-
-        public void setCategory(String category) {
-            this.category = category;
-        }
-    }
 
     @GetMapping("/adminpanel/events/edit/{id}")
     public String adminEdit(@PathVariable Long id, final Model model) {
@@ -165,11 +101,11 @@ public class MainController {
 
         Event event = this.eventService.get(id);
 
-        event.setName(eventDetails.name);
+        event.setName(eventDetails.getName());
         event.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-10-10"));
-        event.setTime(eventDetails.time);
-        event.setDescription(eventDetails.description);
-        event.setCategory(eventDetails.category);
+        event.setTime(eventDetails.getTime());
+        event.setDescription(eventDetails.getDescription());
+        event.setCategory(eventDetails.getCategory());
 
         Event updated = this.eventService.update(event, id);
 
@@ -183,53 +119,7 @@ public class MainController {
         //return "admin/adminpanelevents";
     }
 
-    private class SuggestEventForm {
-        String name;
-        String date;
-        String time;
-        String description;
-        String category;
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public void setDate(String date) {
-            this.date = date;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public String getCategory() {
-            return category;
-        }
-
-        public void setCategory(String category) {
-            this.category = category;
-        }
-    }
 
     @GetMapping("/suggestevent")
     public String redirectToSuggest(Model model) {
@@ -241,14 +131,14 @@ public class MainController {
     public String suggestAnEvent(@ModelAttribute SuggestEventForm eventDetails, Model model) throws ParseException {
 
         Event event = new Event();
-        event.setName(eventDetails.name);
+        event.setName(eventDetails.getName());
         // FIXME:
         // Should parse date provided by form. First mangle it to correct format, then parse.
         // event.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-10-10"));
         event.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2025-10-10"));
-        event.setTime(eventDetails.time);
-        event.setDescription(eventDetails.description);
-        event.setCategory(eventDetails.category);
+        event.setTime(eventDetails.getTime());
+        event.setDescription(eventDetails.getDescription());
+        event.setCategory(eventDetails.getCategory());
 
         eventService.create(event);
 
