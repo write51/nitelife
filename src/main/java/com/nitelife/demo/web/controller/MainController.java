@@ -43,7 +43,7 @@ public class MainController {
 
     @PostMapping("/login")
     public String submitLogin(@ModelAttribute LoginForm loginDetails, Model model) {
-        if (Objects.equals(loginDetails.getUsername(), "admin") && Objects.equals(loginDetails.getPassword(), "admin")) {
+        if (this.mainService.loginIsValid(loginDetails.getUsername(), loginDetails.getPassword())) {
             return redirectToAdminPanel(model);
         }
         return "index";

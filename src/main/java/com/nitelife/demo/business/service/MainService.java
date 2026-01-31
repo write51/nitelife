@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class MainService {
@@ -66,4 +67,10 @@ public class MainService {
         return forwardLink;
     }
 
+    public boolean loginIsValid(String username, String password) {
+        if (Objects.equals(username, "admin") && Objects.equals(password, "admin")) {
+            return true;
+        }
+        return false;
+    }
 }
