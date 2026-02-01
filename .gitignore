@@ -31,4 +31,5 @@ jsons
 mvnw
 mvnw.cmd
 nitelife.db
+nitelife.sqlite
 script
